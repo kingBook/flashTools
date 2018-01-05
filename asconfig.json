@@ -1,0 +1,11 @@
+{
+    "config": "air",
+    "files":["src/app/Main.as"],
+    "application": "tools/tools-app.xml",
+	"compilerOptions": {
+        "output": "tools/tools.swf",
+        "source-path": ["src"],
+        "swf-version": 17.0,
+        "target-player": "11.4"
+	}
+}
