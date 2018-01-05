@@ -9,6 +9,9 @@
 	import flash.utils.getQualifiedClassName;
 
 	public class SWFReader{
+        private static var FILE_VERSION:uint = 1;
+		public var version:uint = FILE_VERSION;
+        
 		public function SWFReader(){}
 		public function read(bytes:SWFByteArray):SWFReadResult{
 			var result:SWFReadResult = new SWFReadResult();
