@@ -9,6 +9,9 @@ package app.swfTool
 	import app.swfTool.swf9.tags.DoABCTag;
 	import app.swfTool.swf9.tags.DefineBinaryDataTag;
 	import app.swfTool.swf9.tags.DefineFontNameTag;
+	import app.swfTool.abc.ABCReader;
+	import app.swfTool.abc.ABCReadResult;
+	import app.swfTool.abc.ABCByteArray;
 
 	public class SWF9Reader extends SWF8Reader
 	{

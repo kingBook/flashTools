@@ -3,6 +3,7 @@ package app.swfTool.swf9.tags
 	
 	import flash.utils.ByteArray;
 	import app.swfTool.swf.tags.SWFTag;
+	import app.swfTool.abc.ABCFile;
 	
 	public class DoABCTag extends SWFTag
 	{
