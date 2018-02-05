@@ -23,7 +23,6 @@ package app.swfTool
 	import app.swfTool.swf8.records.FocalGradientRecord;
 	import app.swfTool.swf3.records.GradientControlPointRecord2;
 	import app.swfTool.swf3.records.FillStyleArrayRecord3;
-
 	public class SWF8Reader extends SWF7Reader
 	{
 		private static var FILE_VERSION:uint = 8;
