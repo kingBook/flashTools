@@ -48,5 +48,9 @@ package app.swfTool.swf8.tags
 			swfBytes.writeUB(24, 0);
 		}
 		*/
+        
+        override public function toXMLString():String{
+            return "";
+        }
 	}
 }

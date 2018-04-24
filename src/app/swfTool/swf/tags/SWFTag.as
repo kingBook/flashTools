@@ -9,5 +9,9 @@
 			
 			this.header = header;
 		}
+        
+        public function toXMLString():String{
+            return "";
+        }
 	};
 }

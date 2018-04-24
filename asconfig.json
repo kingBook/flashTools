@@ -5,7 +5,7 @@
 	"compilerOptions": {
         "output": "tools/tools.swf",
         "source-path": ["src"],
-        "swf-version": 17.0,
+        "swf-version": 17,
         "target-player": "11.4"
 	}
 }

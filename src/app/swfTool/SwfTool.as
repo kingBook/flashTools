@@ -17,6 +17,7 @@
 	import app.swfTool.SWFReader;
 	import app.swfTool.SWFReadResult;
 	import flash.system.LoaderContext;
+	import app.swfTool.swf.tags.SWFTag;
 	
 	
 	public class SwfTool extends MovieClip {
@@ -76,7 +77,7 @@
 			//bytes.position=8;
 			//
 			this.stage.addChild(loaderInfo.content);
-			var swfReader:SWFReader=new SWFReader();
+			var swfReader:SWF10Reader=new SWF10Reader();
 			
 			var swfBytes:SWFByteArray=new SWFByteArray(loaderInfo.bytes);
 			var swfReadResult:SWFReadResult=swfReader.read(swfBytes);
@@ -87,8 +88,11 @@
 			while(--i>=0){
 				//trace(swfReadResult.tagMetadata[i] is);
 			}
-            
-            trace(swfReadResult.swf.tags[1]);
+            //
+            var tags:Vector.<SWFTag>=swfReadResult.swf.tags;
+            for(i=0;i<tags.length;i++){
+                trace(tags[i]);
+            }
 		}
 		
 		
