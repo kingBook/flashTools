@@ -50,7 +50,13 @@ package app.swfTool.swf8.tags
 		*/
         
         override public function toXMLString():String{
-            return "";
+			var xml:XML=<FileAttributesTag/>;
+			xml.@useDirectBlit=useDirectBlit;
+			xml.@useGPU=useGPU;
+			xml.@hasMetadata=hasMetadata;
+			xml.@actionScript3=actionScript3;
+			xml.@useNetwork=useNetwork;
+            return xml.toXMLString();
         }
 	}
 }

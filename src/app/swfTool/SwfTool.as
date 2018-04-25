@@ -91,7 +91,7 @@
             //
             var tags:Vector.<SWFTag>=swfReadResult.swf.tags;
             for(i=0;i<tags.length;i++){
-                trace(tags[i]);
+                trace(tags[i].toXMLString());
             }
 		}
 		
