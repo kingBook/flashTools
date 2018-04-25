@@ -50,7 +50,7 @@ package app.swfTool.swf8.tags
 		*/
         
         override public function toXMLString():String{
-			var xml:XML=<FileAttributesTag/>;
+			var xml:XML=createXML();
 			xml.@useDirectBlit=useDirectBlit;
 			xml.@useGPU=useGPU;
 			xml.@hasMetadata=hasMetadata;
