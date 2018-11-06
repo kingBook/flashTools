@@ -31,5 +31,23 @@ package app.swfTool.swf3.tags
 			this.clipDepth = clipDepth;
 			this.clipActions = clipActions;
 		}
+		
+		override public function toXMLString():String{
+			var xml:XML=createXML();
+			xml.@move=move;
+			xml.@depth=depth;
+			xml.@characterId=characterId;
+			xml.Matrix=matrix.toXML();
+			if(colorTransform){
+				xml.ColorTransform=colorTransform.toXML();
+			}
+			if(ratio){
+				xml.@ratio=ratio;
+			}
+			xml.@name=name;
+			xml.@clipDepth=clipDepth;
+			xml.@clipActions="...";
+            return xml.toXMLString();
+        }
 	}
 }

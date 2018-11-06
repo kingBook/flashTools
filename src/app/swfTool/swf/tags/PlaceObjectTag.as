@@ -40,5 +40,12 @@
 			}
 		}
 		*/
+		
+		override public function toXMLString():String{
+			var xml:XML=createXML();
+			xml.Tip=<Tip>'PlaceObject is rarely used in SWF 3 and later versions,it is superseded by PlaceObject2 and PlaceObject3'</Tip>;
+            return xml.toXMLString();
+        }
+		
 	}
 }

@@ -15,7 +15,7 @@
 		}
 		
 		override public function toXMLString():String{
-			var xml:XML=<SetBackgroundColorTag/>;
+			var xml:XML=createXML();
 			var r:String=backgroundColor.red.toString(16);
 			var g:String=backgroundColor.green.toString(16);
 			var b:String=backgroundColor.blue.toString(16);

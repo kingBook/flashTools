@@ -19,19 +19,16 @@
 		
 		final protected function createXML():XML{
 			var xml:XML=<Tag/>;
-			
-			var headerXML:XML=<Header/>;
-			headerXML.@name=getObjClassName(this);
-			headerXML.@type=header.type;
-			headerXML.@position=0;
-			headerXML.@length=header.length;
-			headerXML.@recordHeader=header.isLong()?"long":"short";
-			xml.Header=headerXML;
+			xml.@name=getObjClassName(this);
+			xml.@type=header.type;
+			//xml.@position=0;
+			xml.@length=header.length;
+			xml.@recordHeader=header.isLong()?"long":"short";
 			return xml;
 		}
         
         public function toXMLString():String{
-            return "";
+            return createXML().toXMLString();
         }
 	};
 }
