@@ -57,5 +57,10 @@
 			this.colorMatrixFilter = colorMatrixFilter;
 			this.gradientBevelFilter = gradientBevelFilter;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<Filter/>;
+			return xml;
+		}
 	}
 }

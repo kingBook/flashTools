@@ -36,6 +36,10 @@ package app.swfTool
 	import app.swfTool.swf3.records.FillStyleArrayRecord3;
 	import app.swfTool.swf3.records.LineStyleRecord2;
 	import app.swfTool.swf3.records.LineStyleArrayRecord2;
+	import app.swfTool.swf.records.BlurFilterRecord;
+	import app.swfTool.swf.records.GlowFilterRecord;
+	import app.swfTool.swf.records.BevelFilterRecord;
+	import app.swfTool.swf.records.GradientGlowFilterRecord;
 	
 	public class SWF3Reader extends SWF2Reader
 	{
@@ -436,6 +440,27 @@ package app.swfTool
 				case 0:
 					record.dropShadowFilter = readDropShadowFilterRecord(context);
 					break;
+				case 1:
+					record.blurFilter=readBlurFilterRecord(context);
+					break;
+				case 2:
+					record.glowFilter=readGlowFilterRecord(context);
+					break;
+				case 3:
+					record.bevelFilter=readBevelFilterRecord(context);
+					break;
+				case 4:
+					record.gradientGlowFilter=readGradientGlowFilterRecord(context);
+					break;
+				case 5:
+					//record.convolutionFilter=readConvolutionFilterRecord(context);
+					break;
+				case 6:
+					//record.colorMatrixFilter=readCOlorMatrixFilterRecord(context);
+					break;
+				case 7:
+					//record.gradientBevelFilter=readGradientBevelFilterRecord(context);
+					break;
 			}
 			return record;
 		}
@@ -453,6 +478,67 @@ package app.swfTool
 			record.knockout = context.bytes.readFlag();
 			record.compositeSource = context.bytes.readFlag();
 			record.passes = context.bytes.readUB(5);
+			return record;
+		}
+		
+		protected function readBlurFilterRecord(context:SWFReaderContext):BlurFilterRecord{
+			var record:BlurFilterRecord=new BlurFilterRecord();
+			record.blurX=context.bytes.readFixed16_16();
+			record.blurY=context.bytes.readFixed16_16();
+			record.passes=context.bytes.readUB(5);
+			record.reserved=context.bytes.readUB(3);
+			return record;
+		}
+		
+		protected function readGlowFilterRecord(context:SWFReaderContext):GlowFilterRecord{
+			var record:GlowFilterRecord=new GlowFilterRecord();
+			record.glowColor=readRGBARecord(context);
+			record.blurX=context.bytes.readFixed16_16();
+			record.blurY=context.bytes.readFixed16_16();
+			record.strength=context.bytes.readFixed8_8();
+			record.innerGlow=context.bytes.readFlag();
+			record.knockout=context.bytes.readFlag();
+			record.compositeSource=context.bytes.readFlag();
+			record.passes=context.bytes.readUB(5);
+			return record;
+		}
+		
+		protected function readBevelFilterRecord(context:SWFReaderContext):BevelFilterRecord{
+			var record:BevelFilterRecord=new BevelFilterRecord();
+			record.shadowColor=readRGBARecord(context);
+			record.highlightColor=readRGBARecord(context);
+			record.blurX=context.bytes.readFixed16_16();
+			record.blurY=context.bytes.readFixed16_16();
+			record.angle=context.bytes.readFixed16_16();
+			record.distance=context.bytes.readFixed16_16();
+			record.strength=context.bytes.readFixed8_8();
+			record.innerShadow=context.bytes.readFlag();
+			record.knockout=context.bytes.readFlag();
+			record.compositeSource=context.bytes.readFlag();
+			record.onTop=context.bytes.readFlag();
+			record.passes=context.bytes.readUB(4);
+			return record;
+		}
+		
+		protected function readGradientGlowFilterRecord(context:SWFReaderContext):GradientGlowFilterRecord{
+			var record:GradientGlowFilterRecord=new GradientGlowFilterRecord();
+			record.numColors=context.bytes.readUI8();
+			for(var i:int=0;i<record.numColors;i++){
+				record.gradientColors.push(readRGBARecord(context));
+			}
+			for(i=0;i<record.numColors;i++){
+				record.gradientRatio.push(context.bytes.readUI8());
+			}
+			record.blurX=context.bytes.readFixed16_16();
+			record.blurY=context.bytes.readFixed16_16();
+			record.angle=context.bytes.readFixed16_16();
+			record.distance=context.bytes.readFixed16_16();
+			record.strength=context.bytes.readFixed8_8();
+			record.innerShadow=context.bytes.readFlag();
+			record.knockout=context.bytes.readFlag();
+			record.compositeSource=context.bytes.readFlag();
+			record.onTop=context.bytes.readFlag();
+			record.passes=context.bytes.readUB(4);
 			return record;
 		}
 		

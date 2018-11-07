@@ -23,6 +23,7 @@ package app.swfTool
 	import app.swfTool.swf8.records.FocalGradientRecord;
 	import app.swfTool.swf3.records.GradientControlPointRecord2;
 	import app.swfTool.swf3.records.FillStyleArrayRecord3;
+	import app.swfTool.swf8.tags.PlaceObject3Tag;
 	public class SWF8Reader extends SWF7Reader
 	{
 		private static var FILE_VERSION:uint = 8;
@@ -51,6 +52,9 @@ package app.swfTool
 					*/
 					case 69:
 						tag = readFileAttributesTag(context, header);
+						break;
+					case 70:
+						tag = readPlaceObject3Tag(context, header);
 						break;
 					case 73: 
 						tag = readDefineFontAlignZonesTag(context, header);
@@ -86,6 +90,65 @@ package app.swfTool
 			context.bytes.readUB(2);
 			tag.useNetwork = context.bytes.readFlag();
 			context.bytes.readUB(24);
+			return tag;
+		}
+		
+		protected function readPlaceObject3Tag(context:SWFReaderContext, header:TagHeaderRecord):PlaceObject3Tag{
+			var tag:PlaceObject3Tag=new PlaceObject3Tag();
+			var placeFlagHasClipActions:Boolean = context.bytes.readFlag();
+			var placeFlagHasClipDepth:Boolean = context.bytes.readFlag();
+			var placeFlagHasName:Boolean = context.bytes.readFlag();
+			var placeFlagHasRatio:Boolean = context.bytes.readFlag();
+			var placeFlagHasColorTransform:Boolean = context.bytes.readFlag();
+			var placeFlagHasMatrix:Boolean = context.bytes.readFlag();
+			var placeFlagHasCharacter:Boolean = context.bytes.readFlag();
+			var placeFlagMove:Boolean=context.bytes.readFlag();
+			var reserved:Boolean=context.bytes.readFlag();
+			var placeFlagOpaqueBackground:Boolean=context.bytes.readFlag();
+			var placeFlagHasVisible:Boolean=context.bytes.readFlag();
+			var placeFlagHasImage:Boolean=context.bytes.readFlag();
+			var placeFlagHasClassName:Boolean=context.bytes.readFlag();
+			var placeFlagHasCacheAsBitmap:Boolean=context.bytes.readFlag();
+			var placeFlagHasBlendMode:Boolean=context.bytes.readFlag();
+			var placeFlagHasFilterList:Boolean=context.bytes.readFlag();
+			tag.depth=context.bytes.readUI16();
+			if(placeFlagHasClassName||(placeFlagHasImage&&placeFlagHasCharacter)){
+				tag.className=context.bytes.readString();
+			}
+			if(placeFlagHasCharacter){
+				tag.characterId=context.bytes.readUI16();
+			}
+			if(placeFlagHasMatrix){
+				tag.matrix=readMatrixRecord(context);
+			}
+			if(placeFlagHasColorTransform){
+				tag.colorTransform=readCXFormWithAlphaRecord(context);
+			}
+			if(placeFlagHasRatio){
+				tag.ratio=context.bytes.readUI16();
+			}
+			if(placeFlagHasName){
+				tag.name=context.bytes.readString();
+			}
+			if(placeFlagHasClipDepth){
+				tag.clipDepth=context.bytes.readUI16();
+			}
+			if(placeFlagHasFilterList){
+				tag.surfaceFilterList=readFilterListRecord(context);
+			}
+			if(placeFlagHasBlendMode){
+				tag.blendMode=context.bytes.readUI8();
+			}
+			if(placeFlagHasCacheAsBitmap){
+				tag.bitmapCache=context.bytes.readUI8()>0;//0:disabled,1-255:enabled
+			}
+			if(placeFlagHasVisible){
+				tag.visible=context.bytes.readUI8()>0;
+				tag.backgroundColor=readRGBARecord(context);
+			}
+			if(placeFlagHasClipActions){
+				tag.clipActions=readClipActionsRecord(context);
+			}
 			return tag;
 		}
 		

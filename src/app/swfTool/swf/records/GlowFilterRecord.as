@@ -2,7 +2,7 @@
 {
 	public class GlowFilterRecord
 	{
-		public var color:RGBARecord;
+		public var glowColor:RGBARecord;
 		public var blurX:Number;
 		public var blurY:Number;
 		public var strength:Number;
@@ -11,14 +11,14 @@
 		public var compositeSource:Boolean;
 		public var passes:uint;
 
-		public function GlowFilterRecord(color:RGBARecord = null, blurX:Number = NaN, blurY:Number = NaN, strength:Number = NaN, innerGlow:Boolean = false, knockout:Boolean = false, compositeSource:Boolean = false, passes:uint = 0)
+		public function GlowFilterRecord(glowColor:RGBARecord = null, blurX:Number = NaN, blurY:Number = NaN, strength:Number = NaN, innerGlow:Boolean = false, knockout:Boolean = false, compositeSource:Boolean = false, passes:uint = 0)
 		{
-			if(color == null)
+			if(glowColor == null)
 			{
-				color = new RGBARecord();
+				glowColor = new RGBARecord();
 			}
 
-			this.color = color;
+			this.glowColor = glowColor;
 			this.blurX = blurX;
 			this.blurY = blurY;
 			this.strength = strength;

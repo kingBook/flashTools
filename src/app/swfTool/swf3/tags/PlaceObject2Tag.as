@@ -15,7 +15,7 @@ package app.swfTool.swf3.tags
 		public var matrix:MatrixRecord;
 		public var colorTransform:CXFormWithAlphaRecord;
 		public var ratio:Object;
-		public var name:String;
+		public var name:Object;
 		public var clipDepth:Object;
 		public var clipActions:ClipActionsRecord;
 
@@ -36,17 +36,27 @@ package app.swfTool.swf3.tags
 			var xml:XML=createXML();
 			xml.@move=move;
 			xml.@depth=depth;
-			xml.@characterId=characterId;
-			xml.Matrix=matrix.toXML();
+			if(characterId){
+				xml.@characterId=characterId;
+			}
+			if(matrix){
+				xml.appendChild(matrix.toXML());
+			}
 			if(colorTransform){
-				xml.ColorTransform=colorTransform.toXML();
+				xml.appendChild(colorTransform.toXML());
 			}
 			if(ratio){
 				xml.@ratio=ratio;
 			}
-			xml.@name=name;
-			xml.@clipDepth=clipDepth;
-			xml.@clipActions="...";
+			if(name){
+				xml.@name=name;
+			}
+			if(clipDepth){
+				xml.@clipDepth=clipDepth;
+			}
+			if(clipActions){
+				xml.@clipActions="...";
+			}
             return xml.toXMLString();
         }
 	}

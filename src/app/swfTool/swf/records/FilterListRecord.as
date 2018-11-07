@@ -15,5 +15,14 @@
 			this.numberOfFilters = numberOfFilters;
 			this.filters = filters;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<FilterList/>;
+			for(var i:int=0;i<filters.length;i++){
+				var filterRecord:FilterRecord=filters[i];
+				xml.appendChild(filterRecord.toXML());
+			}
+			return xml;
+		}
 	}
 }

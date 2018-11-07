@@ -17,5 +17,13 @@
 			this.blue = blue;
 			this.alpha = alpha;
 		}
+		
+		public function toString():String{
+			var r:String=red.toString(16);
+			var g:String=green.toString(16);
+			var b:String=blue.toString(16);
+			var a:String=alpha.toString(16);
+			return r+g+b+a;
+		}
 	}
 }
