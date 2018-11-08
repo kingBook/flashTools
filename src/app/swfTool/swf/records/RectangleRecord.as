@@ -16,14 +16,7 @@
 		}
         
         public function toString():String{
-            var str:String="";
-            str+="{";
-            str+="xMin:"+xMin+",";
-            str+="yMin:"+yMin+",";
-            str+="xMax:"+xMax+",";
-            str+="yMax:"+yMax;
-            str+="}";
-            return str;
+            return xMin+","+yMin+","+xMax+","+yMax;
         }
 	}
 }

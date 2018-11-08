@@ -41,5 +41,30 @@
 			this.onTop = onTop;
 			this.passes = passes;
 		}
+		
+		public function mergeToXML(xml:XML):void{
+			xml.@numColors=numColors;
+			var strGradientColors:String="";
+			var strGradientRatio:String="";
+			for(var i:int=0;i<numColors;i++){
+				strGradientColors+=gradientColors[i].toString();
+				if(i<numColors-1)strGradientColors+=",";
+				
+				strGradientRatio+=gradientRatio[i].toString();
+				if(i<numColors-1)strGradientRatio+=",";
+			}
+			xml.@gradientColors=strGradientColors;
+			xml.@gradientRatio=gradientRatio;
+			xml.@blurX=blurX;
+			xml.@blurY=blurY;
+			xml.@angle=angle;
+			xml.@distance=distance;
+			xml.@strength=strength;
+			xml.@innerShadow=innerShadow;
+			xml.@knockout=knockout;
+			xml.@compositeSource=compositeSource;
+			xml.@onTop=onTop;
+			xml.@passes=passes;
+		}
 	}
 }

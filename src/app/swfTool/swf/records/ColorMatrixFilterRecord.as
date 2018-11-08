@@ -13,5 +13,14 @@
 
 			this.matrix = matrix;
 		}
+		
+		public function mergeToXML(xml:XML):void{
+			var strMatrix:String="";
+			for(var i:int=0;i<matrix.length;i++){
+				strMatrix+=matrix[i];
+				if(i<matrix.length-1)strMatrix+=",";
+			}
+			xml.@matrix=strMatrix;
+		}
 	}
 }

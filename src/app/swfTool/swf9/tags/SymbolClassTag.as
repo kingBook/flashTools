@@ -43,5 +43,14 @@ package  app.swfTool.swf9.tags
 			}
 		}
 		*/
+		
+		override public function toXMLString():String{
+			var xml:XML=createXML();
+			for(var i:int=0;i<symbols.length;i++){
+				xml.appendChild(symbols[i].toXML());
+			}
+			return xml.toXMLString();
+		}
+		
 	}
 }

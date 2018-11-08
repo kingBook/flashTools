@@ -14,5 +14,12 @@
 			this.passes = passes;
 			this.reserved = reserved;
 		}
+		
+		public function mergeToXML(xml:XML):void{
+			xml.@blurX=blurX;
+			xml.@blurY=blurY;
+			xml.@passes=passes;
+			xml.@reserved=reserved;
+		}
 	}
 }

@@ -7,9 +7,10 @@ package app.swfTool.swf8.tags
 
 	public class DefineScalingGridTag extends SWFTag
 	{
+		
 		public var characterId:uint;
 		public var splitter:RectangleRecord;
-
+		
 		public function DefineScalingGridTag(characterId:uint = 0, splitter:RectangleRecord = null)
 		{
 			if(splitter == null)
@@ -20,6 +21,7 @@ package app.swfTool.swf8.tags
 			this.characterId = characterId;
 			this.splitter = splitter;
 		}
+		
 		/*
 		override public function read(swf:SWF, swfBytes:SWFByteArray):void
 		{
@@ -36,5 +38,12 @@ package app.swfTool.swf8.tags
 			splitter.write(swfBytes);
 		}
 		*/
+		
+		override public function toXMLString():String{
+			var xml:XML=createXML();
+			xml.@characterId=characterId;
+			xml.@splitter=splitter.toString();
+			return xml.toXMLString();
+		}
 	}
 }

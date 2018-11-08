@@ -6,7 +6,7 @@ package app.swfTool.swf3.tags
 	public class FrameLabelTag extends SWFTag
 	{
 		public var name:String;
-
+		
 		public function FrameLabelTag(name:String = '')
 		{
 			this.name = name;

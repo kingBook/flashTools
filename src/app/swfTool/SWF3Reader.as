@@ -40,6 +40,10 @@ package app.swfTool
 	import app.swfTool.swf.records.GlowFilterRecord;
 	import app.swfTool.swf.records.BevelFilterRecord;
 	import app.swfTool.swf.records.GradientGlowFilterRecord;
+	import app.swfTool.swf.records.GradientBevelFilterRecord;
+	import app.swfTool.swf.records.ConvolutionFilterRecord;
+	import app.swfTool.swf.records.ColorMatrixFilterRecord;
+	import app.swfTool.swf3.tags.RemoveObject2Tag;
 	
 	public class SWF3Reader extends SWF2Reader
 	{
@@ -62,7 +66,7 @@ package app.swfTool
 				switch(header.type)
 				{
 					/*
-					case 28: tag = readRemoveObject2Tag(context, header);
+					//case 28: tag = readRemoveObject2Tag(context, header);
 					case 33: tag = readDefineText2Tag(context, header);
 					case 45: tag = readSoundStreamHead2Tag(context, header);
 					case 46: tag = readDefineMorphShapeTag(context, header);
@@ -77,6 +81,7 @@ package app.swfTool
 					case 26:
 						tag = readPlaceObject2Tag(context, header);
 						break;
+					case 28: tag = readRemoveObject2Tag(context, header);
 					case 32:
 						tag = readDefineShape3Tag(context, header);
 						break;
@@ -166,6 +171,12 @@ package app.swfTool
 			{
 				tag.clipActions = readClipActionsRecord(context);
 			}
+			return tag;
+		}
+		
+		protected function readRemoveObject2Tag(context:SWFReaderContext, header:TagHeaderRecord):RemoveObject2Tag{
+			var tag:RemoveObject2Tag=new RemoveObject2Tag();
+			tag.depth=context.bytes.readUI16();
 			return tag;
 		}
 		
@@ -431,12 +442,10 @@ package app.swfTool
 			return record;
 		}
 		
-		protected function readFilterRecord(context:SWFReaderContext):FilterRecord
-		{
+		protected function readFilterRecord(context:SWFReaderContext):FilterRecord{
 			var record:FilterRecord = new FilterRecord();
-			record.filterId = context.bytes.readUI8();
-			switch(record.filterId)
-			{
+			record.filterID = context.bytes.readUI8();
+			switch(record.filterID){
 				case 0:
 					record.dropShadowFilter = readDropShadowFilterRecord(context);
 					break;
@@ -453,13 +462,13 @@ package app.swfTool
 					record.gradientGlowFilter=readGradientGlowFilterRecord(context);
 					break;
 				case 5:
-					//record.convolutionFilter=readConvolutionFilterRecord(context);
+					record.convolutionFilter=readConvolutionFilterRecord(context);
 					break;
 				case 6:
-					//record.colorMatrixFilter=readCOlorMatrixFilterRecord(context);
+					record.colorMatrixFilter=readColorMatrixFilterRecord(context);
 					break;
 				case 7:
-					//record.gradientBevelFilter=readGradientBevelFilterRecord(context);
+					record.gradientBevelFilter=readGradientBevelFilterRecord(context);
 					break;
 			}
 			return record;
@@ -468,7 +477,7 @@ package app.swfTool
 		protected function readDropShadowFilterRecord(context:SWFReaderContext):DropShadowFilterRecord
 		{
 			var record:DropShadowFilterRecord = new DropShadowFilterRecord();
-			record.color = readRGBARecord(context);
+			record.dropShadowColor = readRGBARecord(context);
 			record.blurX = context.bytes.readFixed16_16();
 			record.blurY = context.bytes.readFixed16_16();
 			record.angle = context.bytes.readFixed16_16();
@@ -539,6 +548,42 @@ package app.swfTool
 			record.compositeSource=context.bytes.readFlag();
 			record.onTop=context.bytes.readFlag();
 			record.passes=context.bytes.readUB(4);
+			return record;
+		}
+		
+		protected function readGradientBevelFilterRecord(context:SWFReaderContext):GradientBevelFilterRecord{
+			var record:GradientBevelFilterRecord=new GradientBevelFilterRecord();
+			record.numColors=context.bytes.readUI8();
+			for(var i:int=0;i<record.numColors;i++){
+				record.gradientColors.push(readRGBARecord(context));
+			}
+			for(i=0;i<record.numColors;i++){
+				record.gradientRatio.push(context.bytes.readUI8());
+			}
+			record.blurX=context.bytes.readFixed16_16();
+			record.blurY=context.bytes.readFixed16_16();
+			record.angle=context.bytes.readFixed16_16();
+			record.distance=context.bytes.readFixed16_16();
+			record.strength=context.bytes.readFixed8_8();
+			record.innerShadow=context.bytes.readFlag();
+			record.knockout=context.bytes.readFlag();
+			record.compositeSource=context.bytes.readFlag();
+			record.onTop=context.bytes.readFlag();
+			record.passes=context.bytes.readUB(4);
+			return record;
+		}
+		
+		protected function readConvolutionFilterRecord(context:SWFReaderContext):ConvolutionFilterRecord{
+			var record:ConvolutionFilterRecord=new ConvolutionFilterRecord();
+			return record;
+		}
+		
+		protected function readColorMatrixFilterRecord(context:SWFReaderContext):ColorMatrixFilterRecord{
+			var record:ColorMatrixFilterRecord=new ColorMatrixFilterRecord();
+			for(var i:int=0;i<20;i++){
+				var value:Number=context.bytes.readFloat();
+				record.matrix.push(value);
+			}
 			return record;
 		}
 		

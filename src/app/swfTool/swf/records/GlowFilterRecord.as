@@ -27,5 +27,16 @@
 			this.compositeSource = compositeSource;
 			this.passes = passes;
 		}
+		
+		public function mergeToXML(xml:XML):void{
+			xml.@glowColor=glowColor.toString();
+			xml.@blurX=blurX;
+			xml.@blurY=blurY;
+			xml.@strength=strength;
+			xml.@innerGlow=innerGlow;
+			xml.@knockout=knockout;
+			xml.@compositeSource=compositeSource;
+			xml.@passes=passes;
+		}
 	}
 }

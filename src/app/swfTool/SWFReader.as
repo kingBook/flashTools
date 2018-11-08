@@ -189,6 +189,8 @@
 		protected function readRemoveObjectTag(context:SWFReaderContext, header:TagHeaderRecord):RemoveObjectTag
 		{
 			var tag:RemoveObjectTag = new RemoveObjectTag();
+			tag.characterId=context.bytes.readUI16();
+			tag.depth=context.bytes.readUI16();
 			return tag;
 		}
 		

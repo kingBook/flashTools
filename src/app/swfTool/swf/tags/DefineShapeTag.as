@@ -10,5 +10,12 @@
 		public var shapeId:uint;
 		public var shapeBounds:RectangleRecord;
 		public var shapes:ShapeWithStyleRecord;
+		
+		override public function toXMLString():String{
+			var xml:XML=createXML();
+			
+			return xml;
+		}
+		
 	}
 }

@@ -39,5 +39,20 @@
 			this.onTop = onTop;
 			this.passes = passes;
 		}
+		
+		public function mergeToXML(xml:XML):void{
+			xml.@shadowColor=shadowColor.toString();
+			xml.@highlightColor=highlightColor.toString();
+			xml.@blurX=blurX;
+			xml.@blurY=blurY;
+			xml.@angle=angle;
+			xml.@distance=distance;
+			xml.@strength=strength;
+			xml.@innerShadow=innerShadow;
+			xml.@knockout=knockout;
+			xml.@compositeSource=compositeSource;
+			xml.@onTop=onTop;
+			xml.@passes=passes;
+		}
 	}
 }

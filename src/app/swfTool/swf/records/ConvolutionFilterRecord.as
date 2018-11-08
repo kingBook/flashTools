@@ -33,5 +33,24 @@
 			this.clamp = clamp;
 			this.preserveAlpha = preserveAlpha;
 		}
+		
+		public function mergeToXML(xml:XML):void{
+			xml.@matrixX=matrixX;
+			xml.@matrixY=matrixY;
+			xml.@divisor=divisor;
+			xml.@bias=bias;
+			
+			var strMatrix:String="";
+			for(var i:int=0;i<matrix.length;i++){
+				strMatrix+=matrix[i];
+				if(i<matrix.length-1)strMatrix+=",";
+			}
+			xml.@matrix=strMatrix;
+			
+			xml.@defaultColor=defaultColor.toString();
+			xml.@reserved=reserved;
+			xml.@clamp=clamp;
+			xml.@preserveAlpha=preserveAlpha;
+		}
 	}
 }

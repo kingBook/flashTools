@@ -2,7 +2,7 @@
 {
 	import app.swfTool.SWFReader;
 	import app.swfTool.SWFByteArray;
-
+	
 	public class FillStyleRecord implements IRecord
 	{
 		public var type:uint;
@@ -11,7 +11,7 @@
 		public var gradient:GradientRecord;
 		public var bitmapId:uint;
 		public var bitmapMatrix:MatrixRecord;
-
+		
 		public function FillStyleRecord(type:uint = 0, color:RGBRecord = null, gradientMatrix:MatrixRecord = null, gradient:GradientRecord = null, bitmapId:uint = 0, bitmapMatrix:MatrixRecord = null)
 		{
 			if(color == null)
@@ -30,7 +30,7 @@
 			{
 				bitmapMatrix = new MatrixRecord();
 			}
-
+			
 			this.type = type;
 			this.color = color;
 			this.gradientMatrix = gradientMatrix;

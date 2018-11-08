@@ -20,6 +20,9 @@
 			var r:String=red.toString(16);
 			var g:String=green.toString(16);
 			var b:String=blue.toString(16);
+			if(r.length<2)r="0"+r;
+			if(g.length<2)g="0"+g;
+			if(b.length<2)b="0"+b;
 			return r+g+b;
 		}
 	}

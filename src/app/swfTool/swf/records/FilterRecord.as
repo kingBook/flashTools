@@ -2,7 +2,7 @@
 {
 	public class FilterRecord
 	{
-		public var filterId:uint;
+		public var filterID:uint;
 		public var dropShadowFilter:DropShadowFilterRecord;
 		public var blurFilter:BlurFilterRecord;
 		public var glowFilter:GlowFilterRecord;
@@ -12,7 +12,7 @@
 		public var colorMatrixFilter:ColorMatrixFilterRecord;
 		public var gradientBevelFilter:GradientBevelFilterRecord;
 
-		public function FilterRecord(filterId:uint = 0, dropShadowFilter:DropShadowFilterRecord = null, blurFilter:BlurFilterRecord = null, glowFilter:GlowFilterRecord = null, bevelFilter:BevelFilterRecord = null, gradientGlowFilter:GradientGlowFilterRecord = null, convolutionFilter:ConvolutionFilterRecord = null, colorMatrixFilter:ColorMatrixFilterRecord = null, gradientBevelFilter:GradientBevelFilterRecord = null)
+		public function FilterRecord(filterID:uint = 0, dropShadowFilter:DropShadowFilterRecord = null, blurFilter:BlurFilterRecord = null, glowFilter:GlowFilterRecord = null, bevelFilter:BevelFilterRecord = null, gradientGlowFilter:GradientGlowFilterRecord = null, convolutionFilter:ConvolutionFilterRecord = null, colorMatrixFilter:ColorMatrixFilterRecord = null, gradientBevelFilter:GradientBevelFilterRecord = null)
 		{
 			if(dropShadowFilter == null)
 			{
@@ -47,7 +47,7 @@
 				gradientBevelFilter = new GradientBevelFilterRecord();
 			}
 
-			this.filterId = filterId;
+			this.filterID = filterID;
 			this.dropShadowFilter = dropShadowFilter;
 			this.blurFilter = blurFilter;
 			this.glowFilter = glowFilter;
@@ -60,6 +60,34 @@
 		
 		public function toXML():XML{
 			var xml:XML=<Filter/>;
+			xml.@filterID=filterID;
+			switch(filterID)
+			{
+				case 0:
+					dropShadowFilter.mergeToXML(xml);
+					break;
+				case 1:
+					blurFilter.mergeToXML(xml);
+					break;
+				case 2:
+					glowFilter.mergeToXML(xml);
+					break;
+				case 3:
+					bevelFilter.mergeToXML(xml);
+					break;
+				case 4:
+					gradientGlowFilter.mergeToXML(xml);
+					break;
+				case 5:
+					convolutionFilter.mergeToXML(xml);
+					break;
+				case 6:
+					colorMatrixFilter.mergeToXML(xml);
+					break;
+				case 7:
+					gradientBevelFilter.mergeToXML(xml);
+					break;
+			}
 			return xml;
 		}
 	}
