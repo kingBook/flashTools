@@ -81,7 +81,9 @@ package app.swfTool
 					case 26:
 						tag = readPlaceObject2Tag(context, header);
 						break;
-					case 28: tag = readRemoveObject2Tag(context, header);
+					case 28: 
+						tag = readRemoveObject2Tag(context, header);
+						break;
 					case 32:
 						tag = readDefineShape3Tag(context, header);
 						break;

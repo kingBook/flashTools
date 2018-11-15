@@ -19,6 +19,7 @@ package app.swfTool.swf8.tags
 
 		public function DefineShape4Tag(shapeId:uint = 0, shapeBounds:RectangleRecord = null, edgeBounds:RectangleRecord = null, reserved:uint = 0, usesFillWindingRule:Boolean = false, usesNonScalingStrokes:Boolean = false, usesScalingStrokes:Boolean = false, shapes:ShapeWithStyleRecord4 = null)
 		{
+			
 			this.shapeId = shapeId;
 			this.shapeBounds = shapeBounds;
 			this.edgeBounds = edgeBounds;

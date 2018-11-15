@@ -39,7 +39,9 @@ package app.swfTool
 					case 76:
 						tag = readSymbolClassTag(context, header);
 						break;
-					case 72:
+					/*case 72:
+						
+						break;*/
 					case 82:
 						tag = readDoABCTag(context, header);
 						break;
