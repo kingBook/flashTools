@@ -4,6 +4,7 @@
 	import flash.filesystem.FileMode;
 	import flash.utils.setTimeout;
 	import flash.events.Event;
+	import flash.events.FileListEvent;
 
 	public class FileUtil{
 		public static var basePath:String;
@@ -16,6 +17,9 @@
 		}
 		//===========================================文件===========================================
 		/**保存文本文件*/
+		/**
+		 * path: 如：'D:\job\test.txt',注意字符常量需要加'\',如:'D:\\job\\test.txt'
+		 */
 		public static function writeFile(path:String,content:String,charSet:String="utf-8"):void{
 			var stream:FileStream = new FileStream();
 			var file:File=new File(formatPath(path));
@@ -82,7 +86,36 @@
 			file.browseForOpen(title,typeFilter);
 			file.addEventListener(Event.SELECT,function(e:Event):void{
 				e.target.removeEventListener(Event.SELECT,arguments.callee);
-				if(callback!=null)callback(file);
+				if(callback!=null)callback(File(e.target));
+			});
+		}
+		
+		/**
+		* 显示“打开文件”对话框，用户可从中选择一个或多个要打开的文件。 
+		* title: 对话框标题
+		* typeFilter: [new FileFilter()]
+		* callback: function (files:Array):void;
+		*/
+		public static function browseForOpenMultiple(title:String,typeFilter:Array=null,callback:Function=null):void{
+			var file:File=new File();
+			file.browseForOpenMultiple(title,typeFilter);
+			file.addEventListener(FileListEvent.SELECT_MULTIPLE,function(e:FileListEvent):void{
+				e.target.removeEventListener(FileListEvent.SELECT_MULTIPLE,arguments.callee);
+				if(callback!=null)callback(e.files);
+			});
+		}
+		
+		/**
+		 * 显示一个目录选择器对话框，用户可从中选择一个目录。
+		 * title:String 对话框标题
+		 * callback: function(file:File):void;
+		 */
+		public static function browseForDirectory(title:String,callback:Function=null):void{
+			var file:File=new File();
+			file.browseForDirectory(title);
+			file.addEventListener(Event.SELECT,function(e:Event):void{
+				e.target.removeEventListener(Event.SELECT,arguments.callee);
+				if(callback!=null)callback(File(e.target));
 			});
 		}
 		
