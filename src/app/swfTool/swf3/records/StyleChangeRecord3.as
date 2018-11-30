@@ -19,5 +19,25 @@ package app.swfTool.swf3.records
 		public var lineStyles:LineStyleArrayRecord2;
 		public var numFillBits:uint;
 		public var numLineBits:uint;
+		
+		public function toXML():XML{
+			var xml:XML=<StyleChangeRecord3/>;
+			xml.@stateNewStyles=stateNewStyles;
+			xml.@stateLineStyle=stateLineStyle;
+			xml.@stateFillStyle1=stateFillStyle1;
+			xml.@stateFillStyle0=stateFillStyle0;
+			xml.@stateMoveTo=stateMoveTo;
+			xml.@moveBits=moveBits;
+			xml.@moveDeltaX=moveDeltaX;
+			xml.@moveDeltaY=moveDeltaY;
+			xml.@fillStyle0=fillStyle0;
+			xml.@fillStyle1=fillStyle1;
+			xml.@lineStyle=lineStyle;
+			xml.appendChild(fillStyles.toXML());
+			xml.appendChild(lineStyles.toXML());
+			xml.@numFillBits=numFillBits;
+			xml.@numLineBits=numLineBits;
+			return xml;
+		}
 	}
 }

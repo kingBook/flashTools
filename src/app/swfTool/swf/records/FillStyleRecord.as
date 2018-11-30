@@ -38,5 +38,17 @@
 			this.bitmapId = bitmapId;
 			this.bitmapMatrix = bitmapMatrix;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<FillStyleRecord/>;
+			xml.@type="0x"+type.toString(16);
+			xml.@color=color.toString();
+			xml.@gradientMatrix=gradientMatrix.toString();
+			xml.appendChild(gradient.toXML());
+			xml.@bitmapId="0x"+bitmapId.toString(16);
+			xml.@bitmapMatrix=bitmapMatrix.toString();
+			return xml;
+		}
+		
 	}
 }

@@ -28,5 +28,21 @@
 			this.fillStyle1 = fillStyle1;
 			this.lineStyle = lineStyle;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<StyleChangeRecord/>;
+			xml.@reserved=reserved;
+			xml.@stateLineStyle=stateLineStyle;
+			xml.@stateFillStyle1=stateFillStyle1;
+			xml.@stateFillStyle0=stateFillStyle0;
+			xml.@stateMoveTo=stateMoveTo;
+			xml.@moveBits=moveBits;
+			xml.@moveDeltaX=moveDeltaX;
+			xml.@moveDeltaY=moveDeltaY;
+			xml.@fillStyle0=fillStyle0;
+			xml.@fillStyle1=fillStyle1;
+			xml.@lineStyle=lineStyle;
+			return xml;
+		}
 	}
 }

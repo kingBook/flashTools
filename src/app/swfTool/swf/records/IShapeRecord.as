@@ -2,5 +2,8 @@
 {
 	public interface IShapeRecord
 	{
+		
+		function toXML():XML;
+		
 	}
 }

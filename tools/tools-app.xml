@@ -20,9 +20,7 @@
   <id>tools</id>
   <versionNumber>1.0</versionNumber>
   <filename>tools</filename>
-  <description/>
   <name>tools</name>
-  <copyright/>
   <initialWindow>
     <content>tools.swf</content>
     <systemChrome>standard</systemChrome>
@@ -35,5 +33,8 @@
   <icon/>
   <customUpdateUI>false</customUpdateUI>
   <allowBrowserInvocation>false</allowBrowserInvocation>
-  <supportedProfiles>extendedDesktop desktop</supportedProfiles>
+  <supportedProfiles>desktop extendedDesktop</supportedProfiles>
+  <android>
+    <manifestAdditions><![CDATA[<manifest android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android" />]]></manifestAdditions>
+  </android>
 </application>

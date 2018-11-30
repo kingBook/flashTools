@@ -23,18 +23,23 @@
 		/**
 		 * [a,c,tx,
 		 *  b,d,ty]
+		 * [scaleX, skewX, tx,
+		 *  skewY, scaleY, ty]
 		 */
 		public function toString():String{
-			//[scaleX, skewY, tx,
-		 	//  skewX, scaleY,ty]
-			var str:String="";
-			if(scale)str+="scale:"+scale.x+","+scale.y+"\n";
-			if(rotate)str+="rotate:"+rotate.skew0+","+rotate.skew1+"\n";
-			if(translate)str+="translate:"+translate.x+","+translate.y+";"
-			return str;
+			//[scaleX, skewX, tx,
+		 	//  skewY, scaleY,ty]
+			
+			var scaleX:Number=scale?scale.x:1;
+			var scaleY:Number=scale?scale.y:1;
+			var skewX:Number=rotate?rotate.skew0:0;
+			var skewY:Number=rotate?rotate.skew1:0;
+			var tx:Number=translate?translate.x:0;
+			var ty:Number=translate?translate.y:0;
+			return scaleX+","+skewX+","+tx+","+skewY+","+scaleY+","+ty;
 		}
 		
-		public function toXML():XML{
+		/*public function toXML():XML{
 			var xml:XML=<Matrix/>;
 			if(scale){
 				xml.@scaleX=scale.x;
@@ -49,6 +54,6 @@
 				xml.@translateY=translate.y;
 			}
 			return xml;
-		}
+		}*/
 	}
 }

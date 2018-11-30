@@ -18,5 +18,14 @@
 			this.count = count;
 			this.fillStyles = fillStyles;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<FillStyleArrayRecord/>;
+			xml.@count=count;
+			for(var i:int=0;i<fillStyles.length;i++){
+				xml.appendChild(fillStyles[i].toXML());
+			}
+			return xml;
+		}
 	}
 }

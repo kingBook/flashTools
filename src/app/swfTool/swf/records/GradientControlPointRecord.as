@@ -15,5 +15,12 @@
 			this.ratio = ratio;
 			this.color = color;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<GradientControlPointRecord/>;
+			xml.@ratio=ratio;
+			xml.@color=color.toString();
+			return xml;
+		}
 	}
 }

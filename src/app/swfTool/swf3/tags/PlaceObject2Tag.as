@@ -40,7 +40,7 @@ package app.swfTool.swf3.tags
 				xml.@characterId=characterId;
 			}
 			if(matrix){
-				xml.appendChild(matrix.toXML());
+				xml.@matrix=matrix.toString();
 			}
 			if(colorTransform){
 				xml.appendChild(colorTransform.toXML());

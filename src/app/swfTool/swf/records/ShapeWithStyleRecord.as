@@ -29,5 +29,17 @@
 			this.numLineBits = numLineBits;
 			this.shapeRecords = shapeRecords;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<ShapeWithStyleRecord/>;
+			xml.appendChild(fillStyles.toXML());
+			xml.appendChild(lineStyles.toXML());
+			xml.@numFillBits=numFillBits;
+			xml.@numLineBits=numLineBits;
+			for(var i:int=0;i<shapeRecords.length;i++){
+				xml.appendChild(xml.shapeRecords[i].toXML());
+			}
+			return xml;
+		}
 	}
 }

@@ -7,5 +7,12 @@ package app.swfTool.swf3.records
 	{
 		public var ratio:uint;
 		public var color:RGBARecord;
+		
+		public function toXML():XML{
+			var xml:XML=<GradientControlPointRecord2/>;
+			xml.@ratio=ratio;
+			xml.@color=color.toString();
+			return xml;
+		}
 	}
 }

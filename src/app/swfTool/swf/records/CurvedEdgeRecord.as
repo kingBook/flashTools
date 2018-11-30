@@ -14,5 +14,14 @@
 			this.anchorDeltaX = anchorDeltaX;
 			this.anchorDeltaY = anchorDeltaY;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<CurvedEdgeRecord/>;
+			xml.@controlDeltaX=controlDeltaX;
+			xml.@controlDeltaY=controlDeltaY;
+			xml.@anchorDeltaX=anchorDeltaX;
+			xml.@anchorDeltaY=anchorDeltaY;
+			return xml;
+		}
 	}
 }

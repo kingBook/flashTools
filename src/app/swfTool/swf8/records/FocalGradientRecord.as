@@ -10,5 +10,18 @@ package app.swfTool.swf8.records
 		public var numGradients:uint;
 		public var gradientRecords:Vector.<GradientControlPointRecord2>;
 		public var focalPoint:Number;
+		
+		public function toXML():XML{
+			var xml:XML=<FocalGradientRecord/>;
+			xml.@spreadMode=spreadMode;
+			xml.@interpolationMode=interpolationMode;
+			xml.@numGradients=numGradients;
+			for(var i:int=0;i<gradientRecords.length;i++){
+				xml.appendChild(gradientRecords[i].toXML());
+			}
+			xml.@focalPoint=focalPoint;
+			return xml;
+		}
+		
 	}
 }

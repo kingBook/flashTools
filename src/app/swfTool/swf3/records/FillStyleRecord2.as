@@ -24,5 +24,16 @@ package app.swfTool.swf3.records
 			this.bitmapId = bitmapId;
 			this.bitmapMatrix = bitmapMatrix;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<FillStyleRecord2/>;
+			xml.@type=type;
+			xml.@color=color.toString();
+			xml.@gradientMatrix=gradientMatrix.toString();
+			xml.appendChild(gradient.toXML());
+			xml.@bitmapId=bitmapId;
+			xml.@bitmapMatrix=bitmapMatrix.toString();
+			return xml;
+		}
 	}
 }

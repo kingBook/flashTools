@@ -12,10 +12,20 @@
 			{
 				lineStyles = new Vector.<LineStyleRecord>();
 			}
-
+			
 			this.count = count;
 			this.countExtended = countExtended;
 			this.lineStyles = lineStyles;
+		}
+		
+		public function toXML():XML{
+			var xml:XML=<LineStyleArrayRecord/>;
+			xml.@count=count;
+			xml.@countExtended=countExtended;
+			for(var i:int=0;i<lineStyles.length;i++){
+				xml.appendChild(lineStyles[i].toXML());
+			}
+			return xml;
 		}
 	}
 }

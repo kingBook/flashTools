@@ -15,5 +15,12 @@
 			this.width = width;
 			this.color = color;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<LineStyleRecord/>;
+			xml.@width=width;
+			xml.@color=color.toString();
+			return xml;
+		}
 	}
 }

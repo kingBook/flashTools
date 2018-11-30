@@ -2,5 +2,6 @@
 {
 	public interface IGradientRecord extends IRecord
 	{
+		function toXML():XML;
 	}
 }

@@ -9,5 +9,16 @@ package app.swfTool.swf2.records
 		public var count:uint;
 		public var countExtended:uint;
 		public var fillStyles:Vector.<FillStyleRecord>;
+		
+		public function toXML():XML{
+			var xml:XML=<FillStyleArrayRecord2/>;
+			xml.@count=count;
+			xml.@countExtended=countExtended;
+			for(var i:int=0;i<fillStyles.length;i++){
+				xml.appendChild(fillStyles[i].toXML());
+			}
+			return xml;
+		}
 	}
+	
 }

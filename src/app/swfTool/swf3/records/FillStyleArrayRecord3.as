@@ -11,5 +11,13 @@ package app.swfTool.swf3.records
 		{
 			this.fillStyles = fillStyles;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<FillStyleArrayRecord3/>;
+			for(var i:int=0;i<fillStyles.length;i++){
+				xml.appendChild(fillStyles[i].toXML());
+			}
+			return xml;
+		}
 	}
 }

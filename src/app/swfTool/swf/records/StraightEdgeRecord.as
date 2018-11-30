@@ -14,5 +14,14 @@
 			this.deltaX = deltaX;
 			this.deltaY = deltaY;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<StraightEdgeRecord/>;
+			xml.@generalLineFlag=generalLineFlag;
+			xml.@vertLineFlag=vertLineFlag;
+			xml.@deltaX=deltaX;
+			xml.@deltaY=deltaY;
+			return xml;
+		}
 	}
 }

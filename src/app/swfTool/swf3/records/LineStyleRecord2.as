@@ -7,5 +7,12 @@ package app.swfTool.swf3.records
 	{
 		public var width:uint;
 		public var color:RGBARecord;
+		
+		public function toXML():XML{
+			var xml:XML=<LineStyleRecord2/>;
+			xml.@width=width;
+			xml.@color=color.toString();
+			return xml;
+		}
 	}
 }

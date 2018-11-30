@@ -39,5 +39,9 @@ package app.swfTool.swf8.records
 			this.color = color;
 			this.fillType = fillType;
 		}
+		
+		public function toXML():XML{
+			
+		}
 	}
 }
