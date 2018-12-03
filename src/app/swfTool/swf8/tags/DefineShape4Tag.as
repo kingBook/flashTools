@@ -29,5 +29,18 @@ package app.swfTool.swf8.tags
 			this.usesScalingStrokes = usesScalingStrokes;
 			this.shapes = shapes;
 		}
+		
+		override public function toXMLString():String{
+			var xml:XML=createXML();
+			xml.@shapeId=shapeId;
+			xml.@shapeBounds=shapeBounds.toString();
+			xml.@edgeBounds=edgeBounds.toString();
+			xml.@reserved=reserved;
+			xml.@usesFillWindingRule=usesFillWindingRule;
+			xml.@usesNonScalingStrokes=usesNonScalingStrokes;
+			xml.@usesScalingStrokes=usesScalingStrokes;
+			xml.appendChild(shapes.toXML());
+			return xml.toXMLString();
+		}
 	}
 }

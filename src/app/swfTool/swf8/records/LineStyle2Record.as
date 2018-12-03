@@ -41,7 +41,21 @@ package app.swfTool.swf8.records
 		}
 		
 		public function toXML():XML{
-			
+			var xml:XML=<LineStyle2Record/>;
+			xml.@width=width;
+			xml.@startCapStyle=startCapStyle;
+			xml.@joinStyle=joinStyle;
+			xml.@hasFillFlag=hasFillFlag;
+			xml.@noHScaleFlag=noHScaleFlag;
+			xml.@noVScaleFlag=noVScaleFlag;
+			xml.@pixelHintingFlag=pixelHintingFlag;
+			xml.@reserved=reserved;
+			xml.@noClose=noClose;
+			xml.@endCapStyle=endCapStyle;
+			if(joinStyle==2)xml.@miterLimitFactor=miterLimitFactor;
+			if(hasFillFlag==0)xml.@color=color.toString();
+			if(hasFillFlag==1)xml.appendChild(fillType.toXML());
+			return xml;
 		}
 	}
 }

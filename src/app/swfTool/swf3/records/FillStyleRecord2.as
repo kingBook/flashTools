@@ -27,12 +27,14 @@ package app.swfTool.swf3.records
 		
 		public function toXML():XML{
 			var xml:XML=<FillStyleRecord2/>;
-			xml.@type=type;
-			xml.@color=color.toString();
-			xml.@gradientMatrix=gradientMatrix.toString();
-			xml.appendChild(gradient.toXML());
-			xml.@bitmapId=bitmapId;
-			xml.@bitmapMatrix=bitmapMatrix.toString();
+			xml.@type=type.toString();
+			if(color) xml.@color=color.toString();
+			if(gradientMatrix)xml.@gradientMatrix=gradientMatrix.toString();
+			if(gradient)      xml.appendChild(gradient.toXML());
+			if(bitmapMatrix){
+				xml.@bitmapId=bitmapId;
+				xml.@bitmapMatrix=bitmapMatrix.toString();
+			}
 			return xml;
 		}
 	}

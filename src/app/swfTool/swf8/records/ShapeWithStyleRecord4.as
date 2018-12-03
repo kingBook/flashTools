@@ -23,5 +23,17 @@ package app.swfTool.swf8.records
 			this.numLineBits = numLineBits;
 			this.shapeRecords = shapeRecords;
 		}
+		
+		public function toXML():XML{
+			var xml:XML=<ShapeWithStyleRecord4/>;
+			xml.appendChild(fillStyles.toXML());
+			xml.appendChild(lineStyles.toXML());
+			xml.@numFillBits=numFillBits;
+			xml.@numLineBits=numLineBits;
+			for(var i:int=0;i<shapeRecords.length;i++){
+				xml.appendChild(shapeRecords[i].toXML());
+			}
+			return xml;
+		}
 	}
 }
