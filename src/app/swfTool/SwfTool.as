@@ -19,6 +19,7 @@
 	import flash.system.LoaderContext;
 	import app.swfTool.swf.tags.SWFTag;
 	import fl.controls.List;
+	import flash.utils.getTimer;
 	
 	public class SwfTool extends MovieClip {
 		
@@ -144,15 +145,14 @@
 			var swfReader:SWF10Reader=new SWF10Reader();
 			
 			var swfBytes:SWFByteArray=new SWFByteArray(loaderInfo.bytes);
+			var time:int=getTimer();
 			var swfReadResult:SWFReadResult=swfReader.read(swfBytes);
+			trace("swfReadResult:",getTimer()-time);
 			_swfReadResult=swfReadResult;
 			//
 			var i:int=swfReadResult.tagMetadata.length;
-			
-			while(--i>=0){
-				//trace(swfReadResult.tagMetadata[i] is);
-			}
             //
+			time=getTimer();
             var tags:Vector.<SWFTag>=swfReadResult.swf.tags;
 			var xml:XML=<Root />;
 			
@@ -161,10 +161,13 @@
             }
 			var swfName:String=loaderInfo.url.substring(loaderInfo.url.lastIndexOf("/")+1,loaderInfo.url.lastIndexOf("."));
 			var path:String=_comboBox_exportFolder.getItemAt(0).label+"\\"+swfName+".xml";
+			trace("out xml:",getTimer()-time);
 			//trace(path);
+			time=getTimer();
 			var xmlString:String="<?xml version=\"1.0\" encoding=\"UTF_8\"?>\n";
 			xmlString+=xml.toXMLString();
 			FileUtil.writeFile(path,xmlString);
+			trace("saveXML:",getTimer()-time);
 		}
 		
 		private function export():void{
