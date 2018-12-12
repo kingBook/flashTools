@@ -20,9 +20,11 @@
 	import app.swfTool.swf.tags.SWFTag;
 	import fl.controls.List;
 	import flash.utils.getTimer;
+	import flash.utils.Dictionary;
 	
 	public class SwfTool extends MovieClip {
 		
+		private var _isUseWorkerParse:Boolean=true;
 		private var _btn_addSwf:Button;
 		private var _btn_addSwfFolder:Button;
 		private var _list_swf:List;
@@ -32,6 +34,7 @@
 		private var _btn_selectExportFolder:Button;
 		private var _comboBox_exportFolder:ComboBox;
 		private var _btn_export:Button;
+		private var _textArea:TextArea;
 		//
 		private var _swfReadResult:SWFReadResult;
 		
@@ -52,6 +55,7 @@
 			_btn_selectExportFolder=this["selectExportFolderButton"];
 			_comboBox_exportFolder=this["exportFolderComboBox"];
 			_btn_export=this["exportButton"];
+			_textArea=this["textArea"];
 			this.addEventListener(MouseEvent.CLICK,clickHandler);
 			//
 			//
@@ -142,32 +146,50 @@
 			//bytes.position=8;
 			//
 			this.stage.addChild(loaderInfo.content);
-			var swfReader:SWF10Reader=new SWF10Reader();
 			
-			var swfBytes:SWFByteArray=new SWFByteArray(loaderInfo.bytes);
-			var time:int=getTimer();
-			var swfReadResult:SWFReadResult=swfReader.read(swfBytes);
-			trace("swfReadResult:",getTimer()-time);
-			_swfReadResult=swfReadResult;
-			//
-			var i:int=swfReadResult.tagMetadata.length;
-            //
-			time=getTimer();
-            var tags:Vector.<SWFTag>=swfReadResult.swf.tags;
-			var xml:XML=<Root />;
-			
-            for(i=0;i<tags.length;i++){
-            	xml.appendChild(XML(tags[i].toXMLString()));
-            }
 			var swfName:String=loaderInfo.url.substring(loaderInfo.url.lastIndexOf("/")+1,loaderInfo.url.lastIndexOf("."));
+			var xml:XML;
+			if(_isUseWorkerParse){
+				var workerSwfToXML:WorkerSwfToXML=new WorkerSwfToXML();
+				workerSwfToXML.parseSwfToXML(loaderInfo.bytes,swfName,onWorkerSwfToXMLComplete);
+				//trace("start convert "+swfName);
+			}else{
+				var swfReader:SWF10Reader=new SWF10Reader();
+				
+				var swfBytes:SWFByteArray=new SWFByteArray(loaderInfo.bytes);
+				var time:int=getTimer();
+				var swfReadResult:SWFReadResult=swfReader.read(swfBytes);
+				trace("swfReadResult:",getTimer()-time);
+				_swfReadResult=swfReadResult;
+				//
+				var i:int=swfReadResult.tagMetadata.length;
+				//
+				time=getTimer();
+				var tags:Vector.<SWFTag>=swfReadResult.swf.tags;
+				xml=<Root />;
+				for(i=0;i<tags.length;i++){
+					xml.appendChild(XML(tags[i].toXMLString()));
+				}
+				trace("out xml:",getTimer()-time);
+				//trace(path);
+				time=getTimer();
+				saveSwfXML(swfName,xml);
+				trace("saveXML:",getTimer()-time);
+			}
+		}
+		
+		private function onWorkerSwfToXMLComplete(swfName:String,xml:XML):void{
+			saveSwfXML(swfName,xml);
+			//计算进度
+			print(swfName+".swf =====complete");
+		}
+		
+		private function saveSwfXML(swfName:String,xml:XML):void{
 			var path:String=_comboBox_exportFolder.getItemAt(0).label+"\\"+swfName+".xml";
-			trace("out xml:",getTimer()-time);
-			//trace(path);
-			time=getTimer();
 			var xmlString:String="<?xml version=\"1.0\" encoding=\"UTF_8\"?>\n";
 			xmlString+=xml.toXMLString();
 			FileUtil.writeFile(path,xmlString);
-			trace("saveXML:",getTimer()-time);
+				
 		}
 		
 		private function export():void{
@@ -180,6 +202,11 @@
 				loader.load(new URLRequest(item.label),loaderContext);
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadSwfComplete);
 			}
+		}
+		
+		private function print(text:String,color:String="#0000ff"):void{
+			var date:Date=new Date();
+			_textArea.htmlText+=(date.hours+":"+date.minutes+":"+date.seconds+" ")+"<font color=\'"+color+"\'>"+text+"</font>\n"
 		}
 		
 		private function removedFromStage(e:Event):void{
